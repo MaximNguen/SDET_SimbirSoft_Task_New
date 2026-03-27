@@ -10,6 +10,7 @@ class BasePage:
     def __init__(self, driver):
         """Инициализация драйвера."""
         self.driver = driver
+        self.wait = WU(self.driver)
         
     def find_element(self, *locator):
         """Поиск элемента на странице по локатору."""
@@ -17,7 +18,6 @@ class BasePage:
     
     def click(self, *locator):
         """Клик по элементу, найденному по локатору."""
-        self.wait = WU(self.driver)
         self.wait.wait_for_clickable(locator)
         self.find_element(*locator).click()
         
