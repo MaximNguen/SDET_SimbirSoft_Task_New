@@ -41,7 +41,7 @@ class MainPage(BasePage):
     def enter_name(self, text) -> None:
         """Метод для ввода текста в поле имени."""
         with allure.step("Ввод текста в поле имени"):
-            return self.get_name_input().send_keys(text)
+            self.get_name_input().send_keys(text)
         
     def get_password_input(self) -> WebElement:
         """Метод для получения элемента поля ввода пароля."""
@@ -54,7 +54,7 @@ class MainPage(BasePage):
     def fill_password(self, text) -> None:
         """Метод для ввода текста в поле пароля."""
         with allure.step("Ввод пароля"):
-            return self.get_password_input().send_keys(text)
+            self.get_password_input().send_keys(text)
         
     def checkbox_list_clicks(self, selected_checkboxes) -> None:
         """Метод для кликов по чекбоксам из списка."""
@@ -113,7 +113,7 @@ class MainPage(BasePage):
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if re.match(pattern, mail):
             with allure.step("Вводим почту, прошедший валидацию"):
-                return self.email().send_keys(mail)
+                self.email().send_keys(mail)
         else:
             with allure.step("Почта у нас не прошла валидацию на формат name@example.com"):
                 raise ValueError(f'Ваша почта - {mail} не соответствует формату name@example.com')
@@ -133,7 +133,7 @@ class MainPage(BasePage):
         texts = [element.text for element in lst]
         texts = sorted(texts, key=lambda x: len(x))
         with allure.step("Вводим нужный текст в поле сообщений"):
-            return self.message().send_keys(texts[-1])
+            self.message().send_keys(texts[-1])
         
     def submit(self) -> WebElement:
         """Метод для получения элемента кнопки подтверждения."""
@@ -147,7 +147,7 @@ class MainPage(BasePage):
         """Метод для клика по кнопке подтверждения."""
         self.wait.wait_for_clickable((MPL.submit[0], MPL.submit[1]))
         with allure.step("Подтверждаем"):
-            return self.driver.execute_script("arguments[0].click();", self.submit())
+            self.driver.execute_script("arguments[0].click();", self.submit())
 
     def check_state_alert(self) -> str:
         """Метод для просмотра текста, который выпал из Alert после клика по кнопке подтверждения."""
