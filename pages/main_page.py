@@ -2,7 +2,6 @@ import re
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webelement import WebElement
 import allure
-import random as rd
 
 from pages.base_page import BasePage
 from utils.elements import MainPageLocators as MPL
