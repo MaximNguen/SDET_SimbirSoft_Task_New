@@ -1,3 +1,5 @@
+from utils.waitUtils import WaitUtils as WU
+
 class BasePage:
     """
     Базовая страница для всех страниц приложения.
@@ -15,6 +17,8 @@ class BasePage:
     
     def click(self, *locator):
         """Клик по элементу, найденному по локатору."""
+        self.wait = WU(self.driver)
+        self.wait.wait_for_clickable(locator)
         self.find_element(*locator).click()
         
     def find_elements(self, *locator):
