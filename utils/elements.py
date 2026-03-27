@@ -5,8 +5,7 @@ class MainPageLocators:
     
     name_input = (By.XPATH, "//input[@id='name-input']")
     password_input = (By.CSS_SELECTOR, "input[type='password']")
-    checkboxes = (By.CSS_SELECTOR, 'name="fav_drink"')
-    checkbox_names = ["Milk", "Coffee"]
+    checkboxes = (By.CSS_SELECTOR, 'input[name="fav_drink"]')
     radio = "Red"
     select = (By.ID, "automation")
     email_input = (By.ID, "email")
