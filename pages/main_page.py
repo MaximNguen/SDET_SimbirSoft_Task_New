@@ -73,10 +73,10 @@ class MainPage(BasePage):
                     
     def radiobox_list_clicks(self) -> None:
         """Метод для кликов по радиокнопкам из списка."""
-        self.wait.wait_for_presence((MPL.RADIO1[0], MPL.RADIO1[1]))
-        radioboxes = self.find_elements(MPL.RADIO1[0], MPL.RADIO1[1])
+        self.wait.wait_for_presence((MPL.radio[0], MPL.radio[1]))
+        radioboxes = self.find_elements(MPL.radio[0], MPL.radio[1])
         self.scroll(radioboxes[0])
-        for radiobox in radioboxes:
+        for radiobox in MPL.radio_value:
             with allure.step(f"Проверяем радиокнопку {radiobox.get_attribute('value')}"):
                 if radiobox.get_attribute("value") == MPL.radio:
                     with allure.step("Выбираем радиокнопку Red - она нам подходит"):
