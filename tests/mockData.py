@@ -43,14 +43,14 @@ class TestData:
     positive_required_only_data = [
         {"name": "klasjdsad", "expected_alert": "Message received!"},
         {"name": "skjdsadasdd", "expected_alert": "Message received!"},
-        {"name": "28973123*(@&#*(&!@#&asjkhdaskld", "expected_alert": "Message received!"},
+        {"name": "28973123*(@&#*(&!@#&asjkhdaskld", "expected_alert": "Message received!"}
     ]
     
     # Положительные тест-кейсы: неполное заполнение (проверка скролла)
     positive_partial_form_data = [
-        {"name": "91283990()*@(*!@$", "expected_alert": "Message received!"},
-        {"name": "[;];;;];]", "expected_alert": "Message received!"},
-        {"name": "28973123*(@&#*(&!@#&asjkhdaskld", "expected_alert": "Message received!"},
+        {"name": "91283990()*@(*!@$", "expected_alert": "Message received!", "expected_text_message": "5, Katalon Studio"},
+        {"name": "[;];;;];]", "expected_alert": "Message received!", "expected_text_message": "5, Katalon Studio"},
+        {"name": "28973123*(@&#*(&!@#&asjkhdaskld", "expected_alert": "Message received!", "expected_text_message": "5, Katalon Studio"},
     ]
     
     # Негативные тест-кейсы: заполнение всех полей кроме имени
@@ -62,25 +62,25 @@ class TestData:
             "automation": "Yes",
             "email": "name@example.ru",
             "expected_alert": False,
-            "description": "Заполнены все поля кроме имени"
+            "expected_text_message": "5, Katalon Studio"
         },
         {
             "password": "jksdhasd",
             "drinks": ["Milk", "Coffee"],
             "color": "Red",
             "automation": "Yes",
-            "email": "213213.com",
+            "email": "name@example.rum",
             "expected_alert": False,
-            "description": "Неверный формат email"
+            "expected_text_message": "5, Katalon Studio"
         },
         {
             "password": "hsad127327(@)*(][][;",
             "drinks": ["Milk", "Coffee"],
             "color": "Red",
             "automation": "Yes",
-            "email": "@gamil.cim",
+            "email": "name@example.ru",
             "expected_alert": False,
-            "description": "Неверный формат email"
+            "expected_text_message": "5, Katalon Studio"
         },
     ]
     

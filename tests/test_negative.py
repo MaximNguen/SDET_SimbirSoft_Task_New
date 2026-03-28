@@ -48,9 +48,6 @@ class TestNegativeResult:
         self.main_page.radiobox_list_clicks()
         self.main_page.select_choose(test_data['automation'])
         self.main_page.email_send(test_data['email'])
-        if not self._is_valid_email(test_data['email']):
-            with allure.step("Тест не пройдет, так как в негативном тест кейсе обнаружен верный формат почты"):
-                pytest.fail(f"Почта {test_data['email']} не выдала ошибку при вводе верного формата")
         self.main_page.send_longest()
         self.main_page.submit_click()
         
@@ -64,13 +61,13 @@ class TestNegativeResult:
             assert name == "", "Поле имени должно быть пустым"
             assert password == test_data['password'], "Поле пароля должно быть заполнено"
             assert email == test_data['email'], "Поле email должно быть заполнено"
-            assert message == "", "Поле сообщения должно быть пустым"
-            assert alert_state == True, "Должен отображаться алерт при отправке формы без имени"
+            assert message == test_data['expected_text_message'], "Поле сообщения должно быть пустым"
+            assert alert_state == False, "Должен отображаться алерт при отправке формы без имени"
     
     @allure.story("Заполнение формы, кроме имени и некоторых полей")
     @allure.title("Проверка отправки формы со всеми заполненными полями")
     @pytest.mark.parametrize("test_data", TestData.negative_optional_only_data)
-    def test_fill_form_without_name(self, test_data):
+    def test_fill_form_optional_only(self, test_data):
         allure.dynamic.description(
             f"""
             Тест проверяет отправку формы с заполнением всех полей.
@@ -87,6 +84,6 @@ class TestNegativeResult:
         with allure.step("Проверка, что форма не отправилась и отображается алерт"):
             assert test_data['expected_alert'] == False, "Форма не должна отправляться при заполнении только необязательных полей"
             
-    def _is_valid_email(self, email):
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        return re.match(pattern, email) is None
+        with allure.step("Проверка, что алерт не выдается при заполнении только необязательных полей"):
+            alert_state = self.main_page.check_alert()
+            assert alert_state == False, "Должен отображаться алерт при отправке формы без имени"

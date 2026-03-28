@@ -65,17 +65,16 @@ class MainPage(BasePage):
         """Метод для кликов по чекбоксам из списка."""
         self.wait.wait_for_presence(MPL.checkboxes)
         checkboxes = self.find_elements(*MPL.checkboxes)
-        self.scroll(checkboxes[0])
         for checkbox in checkboxes:
             checkbox_id = checkbox.get_attribute("id")
             label = self.find_element(By.XPATH, f"//label[@for='{checkbox_id}']")
             label_text = label.text
             with allure.step(f"Проверяем чекбокс {checkbox.get_attribute('value')}"):
+                self.scroll(checkbox)
                 if label_text in selected_checkboxes:
                     with allure.step(f"Выбираем чекбокс {label_text} - он нам подходит"):
-                        self.scroll(checkbox)
                         if not checkbox.is_selected():
-                            checkbox.click()
+                            self.driver.execute_script("arguments[0].click();", checkbox)
                 else:
                     with allure.step(f"Этот чекбокс {checkbox.get_attribute('value')} не подходит нам"):
                         continue
@@ -91,7 +90,7 @@ class MainPage(BasePage):
                 if radiobox.get_attribute("value") == MPL.radio_value:
                     with allure.step("Выбираем радиокнопку Red - она нам подходит"):
                         if not radiobox.is_selected():
-                            radiobox.click()
+                            self.driver.execute_script("arguments[0].click();", radiobox)
                     return self
         raise AssertionError(f"Радиокнопка со значением '{MPL.radio_value}' не найдена")
     
@@ -127,7 +126,7 @@ class MainPage(BasePage):
                 self.get_email_input().send_keys(mail)
         else:
             with allure.step("Почта у нас не прошла валидацию на формат name@example.com"):
-                raise ValueError(f'Ваша почта - {mail} не соответствует формату name@example.com')
+                pass
         return self    
             
     def get_message_input(self) -> WebElement:

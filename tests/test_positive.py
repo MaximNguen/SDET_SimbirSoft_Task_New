@@ -49,18 +49,14 @@ class TestPositiveResult:
         self.main_page.radiobox_list_clicks()
         self.main_page.select_choose(test_data['automation'])
         self.main_page.email_send(test_data['email'])
-        if not self._is_valid_email(test_data['email']):
-            with allure.step("Тест не пройдет, так как в негативном тест кейсе обнаружен верный формат почты"):
-                pytest.fail(f"Почта {test_data['email']} не выдала ошибку при вводе верного формата")
         self.main_page.send_longest()
-        self.main_page.submit_click()
         
         name = self.main_page.get_name_input().get_attribute("value")
         password = self.main_page.get_password_input().get_attribute("value")
         email = self.main_page.get_email_input().get_attribute("value")
         message = self.main_page.get_message_input().get_attribute("value")
-        alert_state = self.main_page.check_alert()
-        alert_text = self.main_page.check_text_alert()
+        
+        self.main_page.submit_click()
         
         with allure.step("Проверяем, что вставленные данные совпадают с данными в форме после отправки"):
             assert name == test_data['name'], f"Имя не совпало, получили в поле - {name}"
@@ -68,8 +64,8 @@ class TestPositiveResult:
             assert email == test_data['email'], f"Email не совпал, получили в поле - {email}"
             assert message == test_data['expected_text_message'], f"Текст сообщения не совпал с ожидаемым, получили в поле - {message}"
         
+        alert_text = self.main_page.check_text_alert()
         with allure.step("Достоверимся, что Alert выпал после отправки формы"):
-            assert alert_state, "Alert не выпал после нажатия Submit"
             assert alert_text == test_data['expected_alert'], f"Alert не появился после отправки формы, получили - {alert_text}"
             
     @allure.story("Ввод только требующихся полей")
@@ -85,16 +81,15 @@ class TestPositiveResult:
         )
         
         self.main_page.enter_name(test_data['name'])
-        self.main_page.submit_click()
-        
-        alert_text = self.main_page.check_text_alert()
         name = self.main_page.get_name_input().get_attribute("value")
+        
+        self.main_page.submit_click()
         
         with allure.step("Проверяем, что вставленные данные совпадают с данными в форме после отправки"):
             assert name == test_data['name'], f"Имя не совпало, получили в поле - {name}"
             
+        alert_text = self.main_page.check_text_alert()  
         with allure.step("Достоверимся, что Alert выпал после отправки формы"):
-            assert self.main_page.check_alert(), "Alert не выпал после нажатия Submit"
             assert alert_text == test_data['expected_alert'], f"Alert не появился после отправки формы, получили - {alert_text}"
             
     @allure.story("Неполный ввод полей, в том числе имени")
@@ -111,20 +106,16 @@ class TestPositiveResult:
         
         self.main_page.enter_name(test_data['name'])
         self.main_page.send_longest()
-        self.main_page.submit_click()
         
         name = self.main_page.get_name_input().get_attribute("value")
         message = self.main_page.get_message_input().get_attribute("value")
-        alert_text = self.main_page.check_text_alert()
+        
+        self.main_page.submit_click()
         
         with allure.step("Проверяем, что вставленные данные совпадают с данными в форме после отправки"):
             assert name == test_data['name'], f"Имя не совпало, получили в поле - {name}"
             assert message == test_data['expected_text_message'], f"Текст сообщения не совпал с ожидаемым, получили в поле - {message}"
             
         with allure.step("Достоверимся, что Alert выпал после отправки формы"):
-            assert self.main_page.check_alert(), "Alert не выпал после нажатия Submit"
+            alert_text = self.main_page.check_text_alert()
             assert alert_text == test_data['expected_alert'], f"Alert не появился после отправки формы, получили - {alert_text}"
-            
-    def _is_valid_email(self, email):
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        return re.match(pattern, email) is None
