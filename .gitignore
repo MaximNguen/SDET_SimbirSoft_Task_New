@@ -14,5 +14,5 @@ allure-report
 *.pyc
 *.pyo
 *.pyd
-pytest_cache
+.pytest_cache
 .coverage
