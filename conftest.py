@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.options import Options
 
 from pages.factory_pages.page_factory import PageFactory
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def driver():
     """Фикстуа для создания драйвера с параметрами"""
     options = Options()
