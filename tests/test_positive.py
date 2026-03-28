@@ -1,6 +1,5 @@
 import allure
 import pytest
-import re
 
 from utils.URLStorage import URLStorage as URLS
 from tests.mockData import TestData
