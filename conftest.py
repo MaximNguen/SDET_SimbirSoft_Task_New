@@ -6,7 +6,7 @@ from pages.factory_pages.page_factory import PageFactory
 
 @pytest.fixture()
 def driver():
-    """Фикстуа для создания драйвера с параметрами"""
+    """Фикстура для создания драйвера с параметрами"""
     options = Options()
     
     options.add_argument("--no-sandbox")
