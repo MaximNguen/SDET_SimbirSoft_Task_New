@@ -149,20 +149,20 @@ class MainPage(BasePage):
         
     def submit(self) -> WebElement:
         """Метод для получения элемента кнопки подтверждения."""
-        self.wait.wait_for_clickable(MPL.submit)
-        submitButton = self.find_element(*MPL.submit)
+        self.wait.wait_for_clickable(MPL.submit_button)
+        submitButton = self.find_element(*MPL.submit_button)
         self.scroll(submitButton)
         with allure.step("Ищем кнопку подтвердить"):
             return submitButton
         
     def submit_click(self) -> 'MainPage':
         """Метод для клика по кнопке подтверждения."""
-        self.wait.wait_for_clickable(MPL.submit)
+        self.wait.wait_for_clickable(MPL.submit_button)
         with allure.step("Подтверждаем"):
             self.driver.execute_script("arguments[0].click();", self.submit())
         return self
     
-    def check_state_alert(self) -> str:
+    def check_text_alert(self) -> str:
         """Метод для просмотра текста, который выпал из Alert после клика по кнопке подтверждения."""
         alert = self.driver.switch_to.alert
         with allure.step("Проверяем какой текст выпал из Alert"):
