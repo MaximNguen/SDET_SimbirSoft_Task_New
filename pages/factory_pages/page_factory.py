@@ -1,4 +1,3 @@
-from typing import Dict, Type
 from selenium.webdriver.remote.webdriver import WebDriver
 import allure
 
@@ -11,9 +10,9 @@ class PageFactory:
     
     def __init__(self, driver: WebDriver):
         self.driver = driver
-        self._instances: Dict[str, object] = {}
+        self._main_page = None
     
-    def get_page(self, refresh: bool = False) -> object:
+    def get_main_page(self, refresh: bool = False) -> object:
         """Получить экземпляр страницы (Так как страниц всего 1 - автоматически создаваемая)."""
         if refresh or self._main_page is None:
             with allure.step("Создаем экземпляр главной страницы"):

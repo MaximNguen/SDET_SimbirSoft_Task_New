@@ -1,6 +1,4 @@
-from typing import Type
-
-from pages.factory_pages.page_factory import PageFactory
+from typing import List
 from utils.waitUtils import WaitUtils as WU
 
 from selenium.webdriver.remote.webelement import WebElement
@@ -26,6 +24,6 @@ class BasePage:
         self.wait.wait_for_clickable(locator)
         self.find_element(*locator).click()
         
-    def find_elements(self, *locator) -> WebElement:
+    def find_elements(self, *locator) -> List[WebElement]:
         """Поиск всех элементов на странице по локатору."""
         return self.driver.find_elements(*locator)

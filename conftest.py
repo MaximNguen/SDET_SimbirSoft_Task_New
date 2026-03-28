@@ -7,14 +7,14 @@ from pages.factory_pages.page_factory import PageFactory
 @pytest.fixture(scope="function")
 def driver():
     """Фикстуа для создания драйвера с параметрами"""
-    options = Options
+    options = Options()
     
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--window-size=1920,1080")
     
-    chrome_browser = webdriver.Chrome()
-    chrome_browser.implicitly_wait(10)
+    driver  = webdriver.Chrome(options=options)
+    driver .implicitly_wait(10)
     
     yield driver
     
