@@ -172,7 +172,7 @@ class MainPage(BasePage):
     def check_alert(self) -> bool:
         """Метод для проверки наличия Alert после клика по кнопке подтверждения."""
         try:
-            alert = self.driver.switch_to.alert
+            self.driver.switch_to.alert
             with allure.step("Нам выпал алерт"):
                 return True
         except:
