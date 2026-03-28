@@ -94,7 +94,7 @@ class MainPage(BasePage):
                     return self
         raise AssertionError(f"Радиокнопка со значением '{MPL.radio_value}' не найдена")
     
-    def select(self) -> WebElement:
+    def get_select(self) -> WebElement:
         """Метод для выбора элемента из выпадающего списка."""
         self.wait.wait_for_presence(MPL.select)
         select_element = self.find_element(*MPL.select)
@@ -106,11 +106,11 @@ class MainPage(BasePage):
         """Метод для выбора элемента из выпадающего списка по значению."""
         self.wait.wait_for_clickable(MPL.select)
         with allure.step(f"Выбираем элемент {value} из выпадающего списка"):
-            select = Select(self.select())
+            select = Select(self.get_select())
             select.select_by_visible_text(value)
         return self
             
-    def email(self) -> WebElement:
+    def get_email(self) -> WebElement:
         """Метод для получения элемента поля ввода почты."""
         self.wait.wait_for_presence(MPL.email_input)
         email = self.find_element(*MPL.email_input)
@@ -123,13 +123,13 @@ class MainPage(BasePage):
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if re.match(pattern, mail):
             with allure.step("Вводим почту, прошедший валидацию"):
-                self.email().send_keys(mail)
+                self.get_email().send_keys(mail)
         else:
             with allure.step("Почта у нас не прошла валидацию на формат name@example.com"):
                 raise ValueError(f'Ваша почта - {mail} не соответствует формату name@example.com')
         return self    
             
-    def message(self) -> WebElement:
+    def get_message(self) -> WebElement:
         """Метод для получения элемента поля ввода сообщений."""
         self.wait.wait_for_presence(MPL.message)
         mess = self.find_element(*MPL.message)
@@ -144,10 +144,10 @@ class MainPage(BasePage):
         texts = [element.text for element in lst]
         texts = sorted(texts, key=lambda x: len(x))
         with allure.step("Вводим нужный текст в поле сообщений"):
-            self.message().send_keys(texts[-1])
+            self.get_message().send_keys(texts[-1])
         return self
         
-    def submit(self) -> WebElement:
+    def get_submit(self) -> WebElement:
         """Метод для получения элемента кнопки подтверждения."""
         self.wait.wait_for_clickable(MPL.submit_button)
         submitButton = self.find_element(*MPL.submit_button)
@@ -159,7 +159,7 @@ class MainPage(BasePage):
         """Метод для клика по кнопке подтверждения."""
         self.wait.wait_for_clickable(MPL.submit_button)
         with allure.step("Подтверждаем"):
-            self.driver.execute_script("arguments[0].click();", self.submit())
+            self.driver.execute_script("arguments[0].click();", self.get_submit())
         return self
     
     def check_text_alert(self) -> str:
