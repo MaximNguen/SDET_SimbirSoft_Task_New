@@ -14,7 +14,8 @@ class TestData:
             "color": "Red",
             "automation": "Yes",
             "email": "maxim@example.com",
-            "expected_alert": "Message received!"
+            "expected_alert": "Message received!",
+            "expected_text_message": "Katalon Studio"
         },
         {
             "name": "Pasha",
@@ -23,7 +24,8 @@ class TestData:
             "color": "Red",
             "automation": "No",
             "email": "pasha@mail.ru",
-            "expected_alert": "Message received!"
+            "expected_alert": "Message received!",
+            "expected_text_message": "Katalon Studio"
         },
         {
             "name": "Egor228443",
@@ -32,7 +34,8 @@ class TestData:
             "color": "Red",
             "automation": "Undecided",
             "email": "egor@gmail.com",
-            "expected_alert": "Message received!"
+            "expected_alert": "Message received!",
+            "expected_text_message": "Katalon Studio"
         },
     ]
     
