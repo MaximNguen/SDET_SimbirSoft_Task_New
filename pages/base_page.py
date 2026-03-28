@@ -1,4 +1,8 @@
+from typing import Type
+
+from pages.factory_pages.page_factory import PageFactory
 from utils.waitUtils import WaitUtils as WU
+
 from selenium.webdriver.remote.webelement import WebElement
 
 class BasePage:
