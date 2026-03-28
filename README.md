@@ -72,6 +72,40 @@
 <strong>Ожидаемый результат</strong> - Окно сообщения Alert с текстом "Message received!" не появилось и сайт скроллит к полю "Name"
 
 <h2>Отчеты на Allure</h2>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/MaximNguen/SDET_SimbirSoft_Task_New/main/screenshots/1.jpg" width="100%"><br>
+  <img src="https://raw.githubusercontent.com/MaximNguen/SDET_SimbirSoft_Task_New/main/screenshots/2.jpg" width="100%">
+</div>
+
+<h2>Результаты запуска тестов</h2>
+<code>tests/test_positive.py::TestPositiveResult::test_fill_form_full[test_data0]
+tests/test_positive.py::TestPositiveResult::test_fill_form_full[test_data1]
+tests/test_positive.py::TestPositiveResult::test_fill_form_full[test_data2]
+tests/test_negative.py::TestNegativeResult::test_fill_form_without_name[test_data2]
+tests/test_positive.py::TestPositiveResult::test_fill_only_required[test_data1]
+tests/test_negative.py::TestNegativeResult::test_fill_form_without_name[test_data0]
+tests/test_positive.py::TestPositiveResult::test_fill_only_required[test_data0]
+tests/test_negative.py::TestNegativeResult::test_fill_form_optional_only[test_data0]
+tests/test_negative.py::TestNegativeResult::test_fill_form_without_name[test_data1]
+tests/test_positive.py::TestPositiveResult::test_fill_only_required[test_data2]
+tests/test_positive.py::TestPositiveResult::test_fill_form_partial[test_data1]
+tests/test_positive.py::TestPositiveResult::test_fill_form_partial[test_data0]
+[gw7] [  7%] PASSED tests/test_positive.py::TestPositiveResult::test_fill_only_required[test_data0]
+[gw10] [ 15%] PASSED tests/test_positive.py::TestPositiveResult::test_fill_form_partial[test_data0] 
+[gw8] [ 23%] PASSED tests/test_positive.py::TestPositiveResult::test_fill_only_required[test_data1]
+[gw11] [ 30%] PASSED tests/test_positive.py::TestPositiveResult::test_fill_form_partial[test_data1] 
+[gw9] [ 38%] PASSED tests/test_positive.py::TestPositiveResult::test_fill_only_required[test_data2] 
+[gw3] [ 46%] PASSED tests/test_negative.py::TestNegativeResult::test_fill_form_optional_only[test_data0]
+[gw5] [ 53%] PASSED tests/test_positive.py::TestPositiveResult::test_fill_form_full[test_data1]
+[gw1] [ 61%] PASSED tests/test_negative.py::TestNegativeResult::test_fill_form_without_name[test_data1] 
+[gw2] [ 69%] PASSED tests/test_negative.py::TestNegativeResult::test_fill_form_without_name[test_data2] 
+[gw0] [ 76%] PASSED tests/test_negative.py::TestNegativeResult::test_fill_form_without_name[test_data0] 
+[gw6] [ 84%] PASSED tests/test_positive.py::TestPositiveResult::test_fill_form_full[test_data2] 
+[gw4] [ 92%] PASSED tests/test_positive.py::TestPositiveResult::test_fill_form_full[test_data0] 
+tests/test_positive.py::TestPositiveResult::test_fill_form_partial[test_data2] 
+[gw0] [100%] PASSED tests/test_positive.py::TestPositiveResult::test_fill_form_partial[test_data2] 
+
+======================================================================================= 13 passed in 73.45s (0:01:13) ======================================================================================= </code>
 
 <h2>Установка и запуск</h2>
 <ol>
