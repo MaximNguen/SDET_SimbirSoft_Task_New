@@ -2,6 +2,7 @@ import re
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webelement import WebElement
 import allure
+from typing import List
 
 from pages.base_page import BasePage
 from utils.elements import MainPageLocators as MPL
@@ -13,22 +14,24 @@ class MainPage(BasePage):
     def __init__(self, driver):
         """Инициализация драйвера и утилит ожидания."""
         super().__init__(driver)
-        self.wait = WU(driver)
         
-    def open(self, url) -> None:
+    def open(self, url: str = None) -> "MainPage":
         """Открытие страницы по URL."""
         with allure.step(f"Открыть страницу по URL: {url}"):
             self.driver.get(url)
+        return self
             
-    def scroll(self, element) -> None:
+    def scroll(self, element: WebElement) -> None:
         """Метод прокрутки до указанного элемента."""
         with allure.step(f"Прокрутить страницу до элемента: {element}"):
             self.driver.execute_script("arguments[0].scrollIntoView();", element)
-            
+        return self
+    
     def quit(self) -> None:
         """Метод выхода из браузера."""
         with allure.step("Закрываем браузер"):
             self.driver.quit()
+        return self
             
     def get_name_input(self) -> WebElement:
         """Метод для получения элемента поля ввода имени."""
@@ -38,10 +41,11 @@ class MainPage(BasePage):
         with allure.step("Поиск поле для ввода имени"):
             return name
         
-    def enter_name(self, text) -> None:
+    def enter_name(self, text: str = None) -> None:
         """Метод для ввода текста в поле имени."""
         with allure.step("Ввод текста в поле имени"):
             self.get_name_input().send_keys(text)
+        return self
         
     def get_password_input(self) -> WebElement:
         """Метод для получения элемента поля ввода пароля."""
@@ -51,12 +55,12 @@ class MainPage(BasePage):
         with allure.step("Поиск поле для пароля"):
             return password
 
-    def fill_password(self, text) -> None:
+    def fill_password(self, text: str = None) -> None:
         """Метод для ввода текста в поле пароля."""
         with allure.step("Ввод пароля"):
             self.get_password_input().send_keys(text)
         
-    def checkbox_list_clicks(self, selected_checkboxes) -> None:
+    def checkbox_list_clicks(self, selected_checkboxes: List[str] = []) -> None:
         """Метод для кликов по чекбоксам из списка."""
         self.wait.wait_for_presence((MPL.checkboxes[0], MPL.checkboxes[1]))
         checkboxes = self.find_elements(MPL.checkboxes[0], MPL.checkboxes[1])
@@ -70,6 +74,7 @@ class MainPage(BasePage):
                 else:
                     with allure.step(f"Этот чекбокс {checkbox.get_attribute('value')} не подходит нам"):
                         continue
+        return self
                     
     def radiobox_list_clicks(self) -> None:
         """Метод для кликов по радиокнопкам из списка."""
@@ -84,7 +89,8 @@ class MainPage(BasePage):
                 else:
                     with allure.step(f"Этот радиобокс {radiobox.get_attribute('value')} не подходит нам"):
                         continue
-        
+        return self
+    
     def select(self) -> WebElement:
         """Метод для выбора элемента из выпадающего списка."""
         self.wait.wait_for_presence((MPL.select[0], MPL.select[1]))
@@ -93,12 +99,13 @@ class MainPage(BasePage):
         with allure.step("Ищем поле с выбором"):
             return select_element
         
-    def select_choose(self, value) -> None:
+    def select_choose(self, value: str = None) -> None:
         """Метод для выбора элемента из выпадающего списка по значению."""
         self.wait.wait_for_clickable((MPL.select[0], MPL.select[1]))
         with allure.step(f"Выбираем элемент {value} из выпадающего списка"):
             select = Select(self.select())
             select.select_by_visible_text(value)
+        return self
             
     def email(self) -> WebElement:
         """Метод для получения элемента поля ввода почты."""
@@ -108,7 +115,7 @@ class MainPage(BasePage):
         with allure.step("Ищем поле для ввода почты"):
             return email
 
-    def email_send(self, mail) -> None:
+    def email_send(self, mail: str = None) -> None:
         """Метод для ввода текста в поле почты с валидацией формата."""
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if re.match(pattern, mail):
@@ -117,7 +124,6 @@ class MainPage(BasePage):
         else:
             with allure.step("Почта у нас не прошла валидацию на формат name@example.com"):
                 raise ValueError(f'Ваша почта - {mail} не соответствует формату name@example.com')
-
     def message(self) -> WebElement:
         """Метод для получения элемента поля ввода сообщений."""
         self.wait.wait_for_presence((MPL.message[0], MPL.message[1]))
@@ -134,6 +140,7 @@ class MainPage(BasePage):
         texts = sorted(texts, key=lambda x: len(x))
         with allure.step("Вводим нужный текст в поле сообщений"):
             self.message().send_keys(texts[-1])
+        return self
         
     def submit(self) -> WebElement:
         """Метод для получения элемента кнопки подтверждения."""
@@ -148,7 +155,8 @@ class MainPage(BasePage):
         self.wait.wait_for_clickable((MPL.submit[0], MPL.submit[1]))
         with allure.step("Подтверждаем"):
             self.driver.execute_script("arguments[0].click();", self.submit())
-
+        return self
+    
     def check_state_alert(self) -> str:
         """Метод для просмотра текста, который выпал из Alert после клика по кнопке подтверждения."""
         alert = self.driver.switch_to.alert
