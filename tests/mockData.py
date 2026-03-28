@@ -92,13 +92,3 @@ class TestData:
             "description": "Заполнены только напитки"
         }
     ]
-    
-    # Негативные тест-кейсы: невалидные email для проверки валидации
-    invalid_emails_data = [
-        {"email": "invalid-email", "should_raise": True},
-        {"email": "missing@domain", "should_raise": True},
-        {"email": "user@.com", "should_raise": True},
-        {"email": "@gmail.com", "should_raise": True},
-        {"email": "user@domain", "should_raise": True},
-        {"email": "user@domain.", "should_raise": True},
-    ]
