@@ -1,5 +1,6 @@
 import allure
 import pytest
+import re
 
 from utils.URLStorage import URLStorage as URLS
 from tests.mockData import TestData
@@ -48,6 +49,9 @@ class TestPositiveResult:
         self.main_page.radiobox_list_clicks()
         self.main_page.select_choose(test_data['automation'])
         self.main_page.email_send(test_data['email'])
+        if not self._is_valid_email(test_data['email']):
+            with allure.step("Тест не пройдет, так как в негативном тест кейсе обнаружен верный формат почты"):
+                pytest.fail(f"Почта {test_data['email']} не выдала ошибку при вводе верного формата")
         self.main_page.send_longest()
         self.main_page.submit_click()
         
@@ -120,3 +124,7 @@ class TestPositiveResult:
         with allure.step("Достоверимся, что Alert выпал после отправки формы"):
             assert self.main_page.check_alert(), "Alert не выпал после нажатия Submit"
             assert alert_text == test_data['expected_alert'], f"Alert не появился после отправки формы, получили - {alert_text}"
+            
+    def _is_valid_email(self, email):
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        return re.match(pattern, email) is None
