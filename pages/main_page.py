@@ -73,6 +73,7 @@ class MainPage(BasePage):
             with allure.step(f"Проверяем чекбокс {checkbox.get_attribute('value')}"):
                 if label_text in selected_checkboxes:
                     with allure.step(f"Выбираем чекбокс {label_text} - он нам подходит"):
+                        self.scroll(checkbox)
                         if not checkbox.is_selected():
                             checkbox.click()
                 else:
@@ -110,7 +111,7 @@ class MainPage(BasePage):
             select.select_by_visible_text(value)
         return self
             
-    def get_email(self) -> WebElement:
+    def get_email_input(self) -> WebElement:
         """Метод для получения элемента поля ввода почты."""
         self.wait.wait_for_presence(MPL.email_input)
         email = self.find_element(*MPL.email_input)
@@ -123,13 +124,13 @@ class MainPage(BasePage):
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if re.match(pattern, mail):
             with allure.step("Вводим почту, прошедший валидацию"):
-                self.get_email().send_keys(mail)
+                self.get_email_input().send_keys(mail)
         else:
             with allure.step("Почта у нас не прошла валидацию на формат name@example.com"):
                 raise ValueError(f'Ваша почта - {mail} не соответствует формату name@example.com')
         return self    
             
-    def get_message(self) -> WebElement:
+    def get_message_input(self) -> WebElement:
         """Метод для получения элемента поля ввода сообщений."""
         self.wait.wait_for_presence(MPL.message)
         mess = self.find_element(*MPL.message)
@@ -144,7 +145,7 @@ class MainPage(BasePage):
         texts = [element.text for element in lst]
         texts = sorted(texts, key=lambda x: len(x))
         with allure.step("Вводим нужный текст в поле сообщений"):
-            self.get_message().send_keys(texts[-1])
+            self.get_message_input().send_keys(texts[-1])
         return self
         
     def get_submit(self) -> WebElement:
