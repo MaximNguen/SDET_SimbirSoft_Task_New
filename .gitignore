@@ -2,3 +2,15 @@
 results
 .idea
 __pycache__
+allure-results
+allure-report
+*.log
+*.xml
+*.json
+*.html
+*.csv
+*.db
+*.sqlite
+*.pyc
+*.pyo
+*.pyd
