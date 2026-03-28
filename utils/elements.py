@@ -7,7 +7,7 @@ class MainPageLocators:
     password_input = (By.CSS_SELECTOR, "input[type='password']")
     checkboxes = (By.CSS_SELECTOR, 'input[name="fav_drink"]')
     radio = (By.CSS_SELECTOR, 'input[name="fav_color"]')
-    radio_value = "Red"
+    radio_value = "Yellow"
     select = (By.ID, "automation")
     email_input = (By.ID, "email")
     list_items = (By.TAG_NAME, "li")
