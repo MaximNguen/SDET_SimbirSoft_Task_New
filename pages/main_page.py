@@ -15,19 +15,19 @@ class MainPage(BasePage):
         """Инициализация драйвера и утилит ожидания."""
         super().__init__(driver)
         
-    def open(self, url: str = None) -> "MainPage":
+    def open(self, url: str = None) -> 'MainPage':
         """Открытие страницы по URL."""
         with allure.step(f"Открыть страницу по URL: {url}"):
             self.driver.get(url)
         return self
             
-    def scroll(self, element: WebElement) -> None:
+    def scroll(self, element: WebElement) -> 'MainPage':
         """Метод прокрутки до указанного элемента."""
         with allure.step(f"Прокрутить страницу до элемента: {element}"):
             self.driver.execute_script("arguments[0].scrollIntoView();", element)
         return self
     
-    def quit(self) -> None:
+    def quit(self) -> 'MainPage':
         """Метод выхода из браузера."""
         with allure.step("Закрываем браузер"):
             self.driver.quit()
@@ -41,7 +41,7 @@ class MainPage(BasePage):
         with allure.step("Поиск поле для ввода имени"):
             return name
         
-    def enter_name(self, text: str = None) -> None:
+    def enter_name(self, text: str = None) -> 'MainPage':
         """Метод для ввода текста в поле имени."""
         with allure.step("Ввод текста в поле имени"):
             self.get_name_input().send_keys(text)
@@ -55,12 +55,13 @@ class MainPage(BasePage):
         with allure.step("Поиск поле для пароля"):
             return password
 
-    def fill_password(self, text: str = None) -> None:
+    def fill_password(self, text: str = None) -> 'MainPage':
         """Метод для ввода текста в поле пароля."""
         with allure.step("Ввод пароля"):
             self.get_password_input().send_keys(text)
+        return self
         
-    def checkbox_list_clicks(self, selected_checkboxes: List[str] = []) -> None:
+    def checkbox_list_clicks(self, selected_checkboxes: List[str] = []) -> 'MainPage':
         """Метод для кликов по чекбоксам из списка."""
         self.wait.wait_for_presence((MPL.checkboxes[0], MPL.checkboxes[1]))
         checkboxes = self.find_elements(MPL.checkboxes[0], MPL.checkboxes[1])
@@ -76,7 +77,7 @@ class MainPage(BasePage):
                         continue
         return self
                     
-    def radiobox_list_clicks(self) -> None:
+    def radiobox_list_clicks(self) -> 'MainPage':
         """Метод для кликов по радиокнопкам из списка."""
         self.wait.wait_for_presence((MPL.radio[0], MPL.radio[1]))
         radioboxes = self.find_elements(MPL.radio[0], MPL.radio[1])
@@ -99,7 +100,7 @@ class MainPage(BasePage):
         with allure.step("Ищем поле с выбором"):
             return select_element
         
-    def select_choose(self, value: str = None) -> None:
+    def select_choose(self, value: str = None) -> 'MainPage':
         """Метод для выбора элемента из выпадающего списка по значению."""
         self.wait.wait_for_clickable((MPL.select[0], MPL.select[1]))
         with allure.step(f"Выбираем элемент {value} из выпадающего списка"):
@@ -115,7 +116,7 @@ class MainPage(BasePage):
         with allure.step("Ищем поле для ввода почты"):
             return email
 
-    def email_send(self, mail: str = None) -> None:
+    def email_send(self, mail: str = None) -> 'MainPage':
         """Метод для ввода текста в поле почты с валидацией формата."""
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         if re.match(pattern, mail):
@@ -124,6 +125,8 @@ class MainPage(BasePage):
         else:
             with allure.step("Почта у нас не прошла валидацию на формат name@example.com"):
                 raise ValueError(f'Ваша почта - {mail} не соответствует формату name@example.com')
+        return self    
+            
     def message(self) -> WebElement:
         """Метод для получения элемента поля ввода сообщений."""
         self.wait.wait_for_presence((MPL.message[0], MPL.message[1]))
@@ -132,7 +135,7 @@ class MainPage(BasePage):
         with allure.step("Ищем поле для сообщенй"):
             return mess
 
-    def send_longest(self) -> None:
+    def send_longest(self) -> 'MainPage':
         """Метод для ввода самого длинного текста из списка в поле сообщений."""
         self.wait.wait_for_presence((MPL.list_items[0], MPL.list_items[1]))
         lst = self.find_elements(MPL.list_items[0], MPL.list_items[1])
@@ -150,7 +153,7 @@ class MainPage(BasePage):
         with allure.step("Ищем кнопку подтвердить"):
             return submitButton
         
-    def submit_click(self) -> None:
+    def submit_click(self) -> 'MainPage':
         """Метод для клика по кнопке подтверждения."""
         self.wait.wait_for_clickable((MPL.submit[0], MPL.submit[1]))
         with allure.step("Подтверждаем"):
