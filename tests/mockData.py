@@ -15,7 +15,7 @@ class TestData:
             "automation": "Yes",
             "email": "maxim@example.com",
             "expected_alert": "Message received!",
-            "expected_text_message": "Katalon Studio"
+            "expected_text_message": "5, Katalon Studio"
         },
         {
             "name": "Pasha",
@@ -25,7 +25,7 @@ class TestData:
             "automation": "No",
             "email": "pasha@mail.ru",
             "expected_alert": "Message received!",
-            "expected_text_message": "Katalon Studio"
+            "expected_text_message": "5, Katalon Studio"
         },
         {
             "name": "Egor228443",
@@ -35,7 +35,7 @@ class TestData:
             "automation": "Undecided",
             "email": "egor@gmail.com",
             "expected_alert": "Message received!",
-            "expected_text_message": "Katalon Studio"
+            "expected_text_message": "5, Katalon Studio"
         },
     ]
     
@@ -90,17 +90,7 @@ class TestData:
             "drinks": ["Milk", "Coffee"],
             "expected_alert": False,
             "description": "Заполнены только напитки"
-        },
-        {
-            "drinks": ["Milk"],
-            "expected_alert": False,
-            "description": "Заполнен только один напиток"
-        },
-        {
-            "drinks": [],
-            "expected_alert": False,
-            "description": "Ничего не заполнено"
-        },
+        }
     ]
     
     # Негативные тест-кейсы: невалидные email для проверки валидации

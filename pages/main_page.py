@@ -145,7 +145,7 @@ class MainPage(BasePage):
         texts = [element.text for element in lst]
         texts = sorted(texts, key=lambda x: len(x))
         with allure.step("Вводим нужный текст в поле сообщений"):
-            self.get_message_input().send_keys(texts[-1])
+            self.get_message_input().send_keys(f"{len(texts)}, {texts[-1]}")
         return self
         
     def get_submit(self) -> WebElement:
