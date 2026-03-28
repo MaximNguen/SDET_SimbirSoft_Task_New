@@ -5,7 +5,7 @@ import allure
 class PageFactory:
     """
     Фабрика для создания и управления страницами.
-    Реализует паттерн Factory и кэширует экземпляры страниц.
+    Реализует паттерн Factory.
     """
     
     def __init__(self, driver: WebDriver):
